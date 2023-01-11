@@ -1,50 +1,37 @@
 const User = require('../models/userAuthModel');
-exports.userSignUp = async (req,resp)=>{
+const catchAsync = require('../utility/catchAsync');
+const AppError = require("../utility/AppError");
+exports.userSignUp = catchAsync(async (req,resp)=>{
 
     console.log(req.body);
     resp.status()
-    try{
       const userData = await User.create(req.body);
+      if(!userData){
+        return next(new AppError(`enter the details`,400))
+      }
         resp.status(200).json({
             status:'success',
             data:{
                 userData
             }
         })
-    }catch(err){
-resp.status(404).json({
-    status:'error',
-    message:err
 })
-    }
-}
 
-exports.userLogin = async (req,resp,next)=>{
+exports.userLogin = catchAsync(async (req,resp,next)=>{
         const {email,password} = req.body;
         console.log(email,password);
+        if(!email || !password){
+            return next(new AppError("provide email and password",400));
+         }
         const getUser = await User.findOne({email})
         const correct = await getUser.correctPassword(password,getUser.password);
         console.log(correct);
-        try
-        {
-
-            if(correct){
+        if(!getUser || !correct){
+            return next(new AppError("incorrect email or password",401));
+            }
                 resp.status(200).json({
                     status:"success",
                    message:'user logged in'
                 })
-            }else{
-                resp.status(400).json({
-                    status:'failure',
-                    message:'user does not exist'
-                })
-            }
-        }catch(err){
-            resp.status(404).json({
-                status:'failure',
-               message:'user not regestered'
-            })
-        }
-   
-}
+})
 
