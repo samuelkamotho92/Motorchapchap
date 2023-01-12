@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const {isEmail} = require('validator');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const Schema = mongoose.Schema;
 const  Authschema = new Schema({
 email:{
@@ -41,8 +42,13 @@ passwordConfirm:{
 },
 role:{
     type:String,
+    enum:['user','admin'],
     default:'user'
-}
+},
+passwordChangedAt:Date,
+passwordResetToken:String,
+resetTokenSetAt:Date,
+resetTokenExpires:Date
 })
 
 Authschema.pre('save', async function (next){
@@ -55,6 +61,28 @@ Authschema.pre('save', async function (next){
 Authschema.methods.correctPassword = async function 
 (pass,userpassword) {
   return  await bcrypt.compare(pass,userpassword)
+}
+
+//chech user has change password
+
+Authschema.methods.changedPasswordAfter = function (jwttimestamp) {
+    
+    if(this.passwordChangedAt){
+const changetimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+//settime aways less than when it was changed 
+return jwttimestamp < changetimestamp;
+    }
+
+    return false;
+}
+
+
+Authschema.methods.createdResetToken = function() {
+const token = crypto.randomBytes(32).toString('hex');
+//hash before sending to db
+this.passwordResetToken =  crypto.createHash('sha256').update(token).digest('hex');
+this.resetTokenExpires = Date.now() + 1 * 24 * 60 * 60 * 1000;
+    return token
 }
 
 const Authmodel = mongoose.model('User',Authschema);
