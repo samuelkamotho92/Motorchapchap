@@ -68,7 +68,7 @@ if(!token){
     return next(new AppError("please login , you are not authorised",401))
 }
 const decoded = await promisify(jwt.verify)(token,process.env.JWT_SECRET);
-console.lof(decoded);
+console.log(decoded);
 let currentUser = await User.findById(decoded.id);
 if(!currentUser){
     return next(new AppError("User does not exist",401))
@@ -88,7 +88,7 @@ exports.restrict = (...roles)=>{
     return (req,resp,next)=>{
         console.log(req.user.role)
 if(!roles.includes(req.user.role)){
-    return next(new AppError("User restricted to delete",403));
+    return next(new AppError("User action restricted",403));
 }
 next();
     }
@@ -99,12 +99,14 @@ exports.resetTokensend = catchAsync(async(req,resp,next)=>{
 //email to send the token
 const {email} = req.body;
 const getUser = await User.findOne({email});
+console.log(getUser);
 if(!getUser){
 return next(new AppError('user does not exist , enter another email',404))
 }
 //generate reset
 //send to email
 const resetToken = await getUser.createdResetToken();
+console.log(resetToken)
 await getUser.save({validateBeforeSave:false})
 const resetUrl = 
 `${req.protocol}://localhost:3000/resetPassword`;
@@ -112,7 +114,7 @@ console.log(resetUrl);
 const message = 
 `sorry,we heard you lost your password, don't worry click link below`
 try{
-await sendEmail({
+     await sendEmail({
     email:getUser.email,
     subject:'RESET YOUR PASSWORD',
     message,

@@ -20,11 +20,11 @@ const handleErrors = (err)=>{
     }
     
     const handleInvalidToken = (err)=>{
-      return new AppError('invalid token ,login again',401)
+      return new AppError('invalid token ,login again',401);
     }
     
     const handleExpiredToken = ()=>{
-        return new AppError("Expired Token,login again",401)
+        return new AppError("Expired Token,login again",401);
     }
     
     const sendErrorProd = (err,resp)=>{
