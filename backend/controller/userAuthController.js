@@ -15,7 +15,6 @@ return jwt.sign({id},process.env.JWT_SECRET,{
 
 exports.userSignUp = catchAsync(async (req,resp)=>{
     console.log(req.body);
-    resp.status()
       const userData = await User.create(req.body);
       const id = userData._id;
       const tk = createJWT(id);
