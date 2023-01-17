@@ -5,16 +5,17 @@ const AppError = require('./utility/AppError');
 const globalError = require('./controller/globalErrorController');
 const cors = require('cors');
 const app = express();
-app.use(cors())
+app.use(cors({origin:`http://localhost:5173`,
+credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
 
 
-app.post('/api/Auth/working',(req,resp)=>{
-    resp.status(200).json({
-    message:'sent succe'
-    })
-})
+// app.post('/api/Auth/working',(req,resp)=>{
+//     resp.status(200).json({
+//     message:'sent succe'
+//     })
+// })
 app.get('/',(req,resp)=>{
 resp.json({
     message:'server is running on azure'

@@ -1,40 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { useState } from 'react';
 import Header from '../partials/Header';
 import Banner from '../partials/Banner';
 import {useForm} from 'react-hook-form';
-import axios from 'axios';
+import { signUphook } from '../hooks/UserSignUphook';
 
-//http://localhost:8080/api/Auth/signUp
 function SignUp() {
+    const {signUp,error,loading} = signUphook()
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = async (data,e)=> {
+    console.log(error,'signup page');
+    const {firstname,lastname,email,nationalID,password,passwordConfirm} = data;
     e.preventDefault();
-    console.log(data.firstname,data.lastname);
-    try{
-       const resp = await axios({
-        method:'post',
-        url:'http://localhost:8080/api/Auth/signUp',
-        data:{
-          firstname:data.firstname,
-          lastname:data.lastname,
-          email:data.email,
-          nationalID:data.NationalID,
-          password:data.password,
-          passwordConfirm:data.passwordConfirm
-        },
-        headers:{"Content-Type" : "application/json"}
-      });
-      const getdata = resp;
-      console.log(getdata);
-    }catch(err){
-console.log(err)
-    }
-
+    console.log(firstname,lastname,nationalID,password,passwordConfirm);
+//     try{
+//     const url = 'http://localhost:8080/api/Auth/signUp'
+// const resp = await fetch(url,{
+// method:'POST',
+// headers:{"Content-Type":"application/json"},
+//   body:JSON.stringify({firstname,lastname,email,nationalID,password,passwordConfirm}),
+//   credentials: 'include',
+//   withCredentials:true
+// });
+// const dataValue = await resp.json()
+// if(dataValue.data){
+//     console.log(dataValue.data);
+//     setsuccess(true);
+//     alert('You have regestered succefully');
+// }
+// if(dataValue.error){
+//     console.log(dataValue.error)
+//     seterrorValue(dataValue.error);
+//     seterror(true);
+//     alert(`something is wrong check again`);
+// }
+//     }catch(err){
+// console.log(err.error)
+//     }
+ await signUp(firstname,lastname,email,nationalID,password,passwordConfirm)
   }
 
-  console.log(errors);
   return (
     <div  className='flex flex-col min-h-screen overflow-hidden'>
       <Header />
@@ -47,9 +53,19 @@ console.log(err)
         </div>
         <div className="w-full md:w-1/2 py-10 px-5 md:px-10">
             <div className="text-center mb-10">
+
                 <h1 className="font-bold text-3xl text-gray-900">REGISTER</h1>
                 <p>Enter your information to register</p>
+                
             </div>
+            {/* {
+                loading && <button type="button" class="bg-indigo-500 ..." disabled>
+                <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+                </svg>
+                Processing...
+              </button>
+            } */}
+            {loading && <progress className="progress w-56"></progress>}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex -mx-3">
                     <div className="w-1/2 px-3 mb-5">
@@ -82,12 +98,12 @@ console.log(err)
                         <label for="" className="text-xs font-semibold px-1">National ID</label>
                         <div className="flex">
                             <div className="w-10 z-10 pl-1 text-center pointer-events-none flex items-center justify-center"><i className="mdi mdi-email-outline text-gray-400 text-lg"></i></div>
-                            <input {...register('NationalID',{required:true,minLength:{
+                            <input {...register('nationalID',{required:true,minLength:{
                               value:8,
                               message:"min length is less than 8 ❌"
                             }})} type="number" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="National ID" />
-                            {errors.NationalID?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">National is required 😶</p>}
-                            <p className="label-text-alt text-fuchsia-400 pt-2">{errors.NationalID?.message}</p>
+                            {errors.nationalID?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">National is required 😶</p>}
+                            <p className="label-text-alt text-fuchsia-400 pt-2">{errors.nationalID?.message}</p>
                         </div>
                     </div>
                 </div>
@@ -101,7 +117,7 @@ console.log(err)
                                message:"min length is less than 8 ❌"
                             }})} type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                             {errors.password?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">password is required 😶</p>}
-                            <p className="label-text-alt text-fuchsia-400 pt-2">{errors.password?.message}</p>
+                            <p className="label-text-alt text-fuchsia-400 pt-2 errorPass">{errors.password?.message}</p>
                         </div>
                     </div>
                     <div className="w-full px-3 mb-12">
@@ -113,21 +129,31 @@ console.log(err)
                                message:"min length is less than 8 ❌"
                             }})} type="password" className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500" placeholder="************" />
                             {errors.passwordConfirm?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Password Confirm is required 😶</p>}
-                            <p className="label-text-alt text-fuchsia-400 pt-2">{errors.passwordConfirm?.message}</p>
+                            <p className="label-text-alt text-fuchsia-400 pt-2 errorPass">{errors.passwordConfirm?.message}</p>
                         </div>
                     </div>
                 </div>
                 <div className="flex -mx-3">
                     <div className="w-full px-3 mb-5">
-                        <button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW</button>
+                        <button className="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">REGISTER NOW
+                        </button>
+                        {error &&   
+<div className="alert alert-error mt-60px shadow-lg w-fit z-50 text-center text-white absolute " >
+<div><span className='text-3xl '>😒</span>
+<span className='text-red-600'>{error}</span>
+</div>
+</div >
+}
                     </div>
                 </div>
+
             </form>
         </div>
     </div>
 </div>
 </div> 
-<Banner />
+
+
       </main>
 
     </div> 

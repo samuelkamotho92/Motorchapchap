@@ -8,9 +8,9 @@ const handleErrors = (err)=>{
         const myvalue = Object.keys(err.keyValue);
         let name = myvalue.toString()
         name = myvalue;
-        console.log(name)
+        // console.log(name)
         const message = `Duplicate values for ${name} , enter unique one`;
-        console.log(message)
+        // console.log(message)
         return new AppError(message,400)
     }
     const handleInvalidinput = (err)=>{
@@ -28,11 +28,17 @@ const handleErrors = (err)=>{
     }
     
     const sendErrorProd = (err,resp)=>{
+        // resp.status(err.statuscode).json({
+        //     status:err.status,
+        //     message:err.message
+        // })
+      
         if(err.isOperational){
             resp.status(err.statuscode).json({
                 status:err.status,
                 message:err.message,
             })
+            // console.log(err.message ,err.status ,err.statuscode);
         }else{
             console.error(err)
             resp.status(500).json({
