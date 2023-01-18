@@ -4,28 +4,32 @@ import { Link } from 'react-router-dom';
 import Header from '../partials/Header';
 import Banner from '../partials/Banner';
 import {useForm} from 'react-hook-form'
+import { signInhook } from '../hooks/UserSignIn';
+import { signUphook } from '../hooks/UserSignUphook';
 
 function SignIn() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const {signIn,error,loading} = signInhook()
   const onSubmit = async (data,e)=>{
     const {email,password} = data
+    console.log(email,password);
     e.preventDefault()
-    try{
-  const url = 'http://localhost:8080/api/Auth/signIn'
-  const resp = await fetch(url,{
-    method:'POST',
-headers:{"Content-Type":"application/json"},
-  body:JSON.stringify({email,password}),
-  credentials: 'include',
-  withCredentials:true
-  })
-  const data = await resp.json();
-  console.log(data);
-  alert(`${data.email} logged in successfully`)
-    }catch(err){
-console.log(err);
-    }
-
+//     try{
+//   const url = 'http://localhost:8080/api/Auth/signIn'
+//   const resp = await fetch(url,{
+//     method:'POST',
+// headers:{"Content-Type":"application/json"},
+//   body:JSON.stringify({email,password}),
+//   credentials: 'include',
+//   withCredentials:true
+//   })
+//   const data = await resp.json();
+//   console.log(data);
+//   alert(`${data.email} logged in successfully`)
+//     }catch(err){
+// console.log(err);
+//     }
+await signIn(email,password);
   }
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -84,6 +88,13 @@ console.log(err);
                     <div className="w-full px-3">
                       <button className="btn text-white bg-blue-600 hover:bg-blue-700 w-full">Sign in</button>
                     </div>
+            {error &&   
+<div className="alert alert-error mt-60px shadow-lg w-fit z-50 text-center text-white absolute " >
+<div><span className='text-3xl '>😒</span>
+<span className='text-red-600'>{error}</span>
+</div>
+</div >
+}
                   </div>
                 </form>
                 <div className="flex items-center my-6">

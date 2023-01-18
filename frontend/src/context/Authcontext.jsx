@@ -1,5 +1,12 @@
 import { createContext, useReducer } from "react";
-export const UseAuthContext = createContext();
+const initialState = {
+user:JSON.parse(localStorage.getItem('user')) || null
+}
+console.log(initialState);
+export const UseAuthContext = createContext(initialState);
+
+//check user from the local storage
+
 
 const authReducer = (state,action)=>{
  switch (action.type) {
