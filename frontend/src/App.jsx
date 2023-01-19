@@ -14,8 +14,8 @@ import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import ResetPassword from './pages/ResetPassword';
-import UserProfile from './pages/UserProfile';
-
+import UserProfile from './pages/Profile';
+import Settings from './pages/Settings';
 
 function App() {
 
@@ -44,6 +44,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       <Route path='/profile' element={<UserProfile />}> </Route>
+      <Route path='/settings' element={<Settings />}></Route>
       </Routes>
     </>
   );

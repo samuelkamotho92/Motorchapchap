@@ -103,7 +103,7 @@ exports.userLogin = catchAsync(async (req, resp, next) => {
             resp.status(200).json({
                 status: "success",
                 message: "user logged in",
-                email:getUser.email,
+                user:getUser,
                 token: tk,
               });
         }

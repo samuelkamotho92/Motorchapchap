@@ -7,6 +7,7 @@ function Header() {
   const [top, setTop] = useState(true);
   const {user,dispatch} = useContext(UseAuthContext);
   console.log(user,'from header');
+
   // detect whether user has scrolled the page down by 10px 
 
   const logOutUser = ()=>{
@@ -43,7 +44,7 @@ function Header() {
               {
                 user && (
                   <><li className='content-center'>
-                    Welcome Back: {user.email}
+                    Welcome Back: {user.user.email}
                   </li><li>
                       <Link to="/profile" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 ml-3">
                         <span>Profile</span>
