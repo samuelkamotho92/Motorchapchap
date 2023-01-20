@@ -5,7 +5,7 @@ const AppError = require('./utility/AppError');
 const globalError = require('./controller/globalErrorController');
 const cors = require('cors');
 const app = express();
-app.use(cors({origin:`http://localhost:5173`,
+app.use(cors({origin:`http://localhost:5174`,
 credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 

@@ -5,12 +5,16 @@ import imagePlaceholder from '../images/kevo.png';
 function Settings() {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [file, setFile] = useState(null);
+
+    const onSubmit = (data)=>{
+console.log(data);
+    }
   return (
     <div className='flex flex-row mt-60px h-screen bg-base-200'>
     <UserSidebar />
     
     <section class="grid h-screen place-items-center  mx-auto">
-        <form>
+        <form onSubmit={handleSubmit(onSubmit())}>
         <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Account Details</h2>
     
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
