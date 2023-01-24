@@ -1,9 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { UseAuthHook } from './UserAuthHook'
-function UserUpdateHook() {
-
-    const updateUser = async (firstname,lastname,email,nationalID,password)=>{
-const url = `http://localhost:8080/api/Auth/updateuser`;
+export const  UserUpdateHook = ()=>{
+    const [error,setError] = useState(null);
+    const [loading,setLoading] = useState(null);
+const updateUser = async (firstname,lastname,email,nationalID,password)=>{
+const url = `http://localhost:8080/api/User/updateuser`;
 const resp = await fetch(url,{
     method:'POST',
     headers:{"Content-Type":"application/json"},
@@ -13,15 +14,19 @@ const resp = await fetch(url,{
 })
 const data = await resp.json();
 const {user} = data;
+console.log(user);
+if(!resp.ok){
+    console.log(data.error)
+    const myError =  Object.values(data.error);
+    console.log(...myError);
+          setError(...myError);
+          setLoading(false);
+}
+if(resp.ok){
+    localStorage.setItem('user',JSON.stringify(data));
+    dispatch({type:'UPDATE',payload:data});
+}
     }
-    if(!resp.ok){
-alert(data.message);
-    }
-    if(resp.ok){
-        localStorage.setItem('user',JSON.stringify(data));
-        dispatch({type:'UPDATE',payload:data});
-    }
-
 return {updateUser}
 }
 

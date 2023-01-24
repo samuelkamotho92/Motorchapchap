@@ -33,6 +33,7 @@ exports.updateUser = catchAsync(async (req,resp)=>{
             new:true,
             runValidators:true
         });
+        console.log(updatedUser);
         if(!updatedUser){
             return next(new AppError('no document found',404));
         }

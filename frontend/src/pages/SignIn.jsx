@@ -14,21 +14,6 @@ function SignIn() {
     const {email,password} = data
     console.log(email,password);
     e.preventDefault()
-//     try{
-//   const url = 'http://localhost:8080/api/Auth/signIn'
-//   const resp = await fetch(url,{
-//     method:'POST',
-// headers:{"Content-Type":"application/json"},
-//   body:JSON.stringify({email,password}),
-//   credentials: 'include',
-//   withCredentials:true
-//   })
-//   const data = await resp.json();
-//   console.log(data);
-//   alert(`${data.email} logged in successfully`)
-//     }catch(err){
-// console.log(err);
-//     }
 await signIn(email,password);
   }
   return (

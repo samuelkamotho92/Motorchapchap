@@ -16,7 +16,8 @@ import SignUp from './pages/SignUp';
 import ResetPassword from './pages/ResetPassword';
 import UserProfile from './pages/Profile';
 import Settings from './pages/Settings';
-
+import ClaimForm from './pages/ClaimForm';
+import ClaimDetails from './pages/ClaimDetails';
 function App() {
 
   const location = useLocation();
@@ -45,6 +46,8 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
       <Route path='/profile' element={<UserProfile />}> </Route>
       <Route path='/settings' element={<Settings />}></Route>
+      <Route path='/claimForm' element={<ClaimForm />}></Route>
+      <Route path='/claimDetails' element={<ClaimDetails />}></Route>
       </Routes>
     </>
   );

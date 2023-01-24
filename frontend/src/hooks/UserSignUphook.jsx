@@ -27,7 +27,7 @@ import { UseAuthHook } from './UserAuthHook';
                 //set the token and useron frontend
     localStorage.setItem('user',JSON.stringify(data));
     dispatch({type:'LOGIN',payload:data});
-    // window.location.replace('/')
+    window.location.replace('/');
 setLoading(false);
         }
     }

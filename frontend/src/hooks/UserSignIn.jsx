@@ -18,20 +18,23 @@ import { UseAuthHook } from './UserAuthHook';
         const data = await resp.json();
         const {user} = data;
         console.log(data,user);
-        if(!resp.ok){
-    //         console.log(data.error)
-    //   const myError =  Object.values(data.error);
-    //   console.log(...myError);
-    //         setError(...myError);
-    //         setLoading(false);
-    console.log(data);
-    alert(data.message);
-        }
+        console.log(resp.ok);
+    //     if(!resp.ok){
+    // //         console.log(data.error)
+    // //   const myError =  Object.values(data.error);
+    // //   console.log(...myError);
+    // //         setError(...myError);
+    // //         setLoading(false);
+    // console.log(data);
+    // alert(data.message);
+    //     }
         if(resp.ok){
                 //set the token and useron frontend
-    localStorage.setItem('user',JSON.stringify(data));
+                console.log('fine')
+                console.log(data);
+     localStorage.setItem('user',JSON.stringify(data));
     dispatch({type:'LOGIN',payload:data});
-    // window.location.replace('/');
+    window.location.replace('/');
 setLoading(false);
         }
     }

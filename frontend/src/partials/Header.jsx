@@ -2,7 +2,7 @@ import React, { useState, useEffect ,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../images/Motorlogo.png';
 import { UseAuthContext } from '../context/Authcontext';
-
+import { UserLogOutHook } from '../hooks/UserLogOut';
 function Header() {
   const [top, setTop] = useState(true);
   const {user,dispatch} = useContext(UseAuthContext);
@@ -11,10 +11,11 @@ function Header() {
   // detect whether user has scrolled the page down by 10px 
 
   const logOutUser = ()=>{
+    console.log('user deleted');
+     localStorage.removeItem('user');
     dispatch({
       type:'LOGOUT'
     })
-    window.location.replace('/');
   }
 
   useEffect(() => {
@@ -54,7 +55,7 @@ function Header() {
                       </Link>
                     </li>
                     <li>
-                    <Link to="/signin" className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out">Log in</Link>
+                    <button  className="font-medium text-gray-600 hover:text-gray-900 px-5 py-3 flex items-center transition duration-150 ease-in-out" onClick={logOutUser}>Log Out</button>
                   </li>
                     </>
                 )

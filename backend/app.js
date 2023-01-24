@@ -5,7 +5,7 @@ const AppError = require('./utility/AppError');
 const globalError = require('./controller/globalErrorController');
 const cors = require('cors');
 const app = express();
-app.use(cors({origin:`http://localhost:5174`,
+app.use(cors({origin:`http://localhost:5173`,
 credentials:true}));
 app.use(express.json());
 app.use(express.urlencoded({extended: true})); 
@@ -22,7 +22,7 @@ resp.json({
 })
 })
 app.use('/api/Auth',userAuthRoute);
-app.use('/api/user',userRoute);
+app.use('/api/User',userRoute);
 app.all('*',(req,resp,next)=>{
 // const err = new Error(`cant locate ${req.originalUrl}`)
 // err.statuscode = 404;
