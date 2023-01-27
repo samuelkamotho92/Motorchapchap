@@ -1,14 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 import { UseAuthHook } from './UserAuthHook'
+import { UseAuthContext } from '../context/Authcontext';
 export const  UserUpdateHook = ()=>{
     const [error,setError] = useState(null);
     const [loading,setLoading] = useState(null);
-const updateUser = async (firstname,lastname,email,nationalID,password)=>{
-const url = `http://localhost:8080/api/User/updateuser`;
+    const {user,dispatch} = useContext(UseAuthContext);
+    const id = user.user._id;
+    console.log(id);
+const updateUser = async (firstname,lastname,email,nationalID)=>{
+const url = `http://localhost:8080/api/user/getUser/${id}`;
+console.log(url);
 const resp = await fetch(url,{
-    method:'POST',
+    method:'PATCH',
     headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({firstname,lastname,email,nationalID,password}),
+      body:JSON.stringify({firstname,lastname,email,nationalID}),
       credentials: 'include',
       withCredentials:true
 })

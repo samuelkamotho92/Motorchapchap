@@ -22,7 +22,7 @@ resp.json({
 })
 })
 app.use('/api/Auth',userAuthRoute);
-app.use('/api/User',userRoute);
+app.use('/api/user',userRoute);
 app.all('*',(req,resp,next)=>{
 // const err = new Error(`cant locate ${req.originalUrl}`)
 // err.statuscode = 404;

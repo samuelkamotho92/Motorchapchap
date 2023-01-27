@@ -14,18 +14,11 @@ function Settings() {
             email:user.user.email,
             nationalID:user.user.nationalID
     }});
-    console.log(errors);
-    console.log(user);
-    const [file, setFile] = useState(null);
 const {updateUser,error} = UserUpdateHook();
     const onSubmit = async (data,e)=>{
         e.preventDefault();
-        console.log('data sent');
-        console.log(data);
-        const {firstname,lastname,email,nationalID,password} = data
-        console.log(firstname);
-// console.log(data);
-// await updateUser(firstname,lastname,email,nationalID,password);
+        const {firstname,lastname,email,nationalID} = data
+await updateUser(firstname,lastname,email,nationalID);
     }
   return (
     <div className='flex flex-row mt-60px h-screen bg-base-200'>

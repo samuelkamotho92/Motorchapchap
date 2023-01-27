@@ -28,21 +28,30 @@ exports.getOne =  catchAsync(async (req,resp,next)=>{
 })
 
 exports.updateUser = catchAsync(async (req,resp)=>{
+    console.log(req.body);
+    try{
         const id = req.params.id;
         const updatedUser = await User.findByIdAndUpdate(id,req.body,{
             new:true,
             runValidators:true
         });
         console.log(updatedUser);
-        if(!updatedUser){
-            return next(new AppError('no document found',404));
-        }
-resp.status(201).json({
+        resp.status(201).json({
             status:"success",
-            data:{
+            user:{
                 updatedUser
             }
         })
+    }catch(err){
+        resp.status(200).json({
+            status:'failure',
+            error:err
+        })
+    }   
+        // if(!updatedUser){
+        //     return next(new AppError('no document found',404));
+        // }
+
 })
 
 exports.deleteUser = catchAsync(async (req,resp)=>{
