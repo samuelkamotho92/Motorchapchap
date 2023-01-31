@@ -1,6 +1,7 @@
 const express = require('express');
 const userAuthRoute = require('./routers/userAuthRouter');
 const userRoute = require('./routers/userRouter');
+const claimRoute = require('./routers/claimRoute');
 const AppError = require('./utility/AppError');
 const globalError = require('./controller/globalErrorController');
 const cors = require('cors');
@@ -23,6 +24,7 @@ resp.json({
 })
 app.use('/api/Auth',userAuthRoute);
 app.use('/api/user',userRoute);
+app.use('/api/claim',claimRoute);
 app.all('*',(req,resp,next)=>{
 // const err = new Error(`cant locate ${req.originalUrl}`)
 // err.statuscode = 404;

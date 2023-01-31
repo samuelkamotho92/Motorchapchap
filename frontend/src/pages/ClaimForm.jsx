@@ -4,18 +4,34 @@ import {useForm} from 'react-hook-form'
 function ClaimForm() {
   const {register,handleSubmit,watch,formState:{errors}} = useForm({
     defaultValues:{
-      carOwner:'samuel kamotho',
-      registrationNo:'KDZ:2030D'
+      carOwner:'firstname lastname',
+      registrationNo:'KXX:000A'
     }
   });
-  const onSubmit = (data)=>{
-console.log(data);
+  const url = `http://localhost:8080/api/claim/createClaim`;
+  const onSubmit =  async(data)=>{
+const {carOwner,registrationNo,vehicleType,purpose} = data;
+console.log(carOwner,registrationNo,vehicleType,purpose);
+const resp = await fetch(url,
+  {
+    method:'POST',
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({carOwner,registrationNo,vehicleType,purpose}),
+    credentials:'include',
+    withCredentials:true
+  })
+  const {Claim}= await resp.json();
+  console.log(Claim);
+  if(resp.ok){
+    alert('claim added succesfully');
+    window.location.replace('/');
+  }
   }
   return (
     <div className='flex flex-row mt-60px h-screen bg-base-200'>
       <UserSidebar />
       <section class="grid h-screen place-items-center  mx-auto">
-        <form onSubmit={handleSubmit(onSubmit())}>
+        <form onSubmit={handleSubmit(onSubmit)}>
         <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Claims Form</h2>
     
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -26,7 +42,7 @@ console.log(data);
 
                 </div>
       <div>
-                    <label class="text-blue-600 dark:text-gray-200" >Registration Number</label>
+                    <label class="text-blue-600 dark:text-gray-200">Registration Number</label>
                     <input {...register('registrationNo',{required:true,minLength:{
                       value:6,
                       message:'min length is less than 6'
@@ -45,11 +61,6 @@ console.log(data);
                     <label class="text-blue-600 dark:text-gray-200">Vehicle Purpose</label>
                     <input {...register('vehiclePurpose',{required:true})} type='text'/>
                     {errors.purpose?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Vehicle purpose is required 😶</p>}
-                </div>
-                <div>
-                    <label class="text-blue-700 dark:text-gray-200">Date Submitted</label>
-                    <input {...register('dateSubmitted',{required:true})} type='date'/>
-                {errors.password?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Date submitted is required 😶</p>}
                 </div>
             </div>
             <div class="flex justify-end mt-6">

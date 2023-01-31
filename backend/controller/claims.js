@@ -1,28 +1,37 @@
 const catchAsync = require('../utility/catchAsync');
 const claim = require('../models/claimForm');
 const AppError = require('../utility/AppError')
-exports.getClaims = catchAsync(async(req,resp,next)=>{
+exports.getClaims = async(req,resp)=>{
 const getAllclaims = await claim.find();
-resp.statu(200).json({
+resp.status(200).json({
     status:'success',
     data:{
         getAllclaims
     }
 })
-});
+};
 
-exports.sendClaim = catchAsync(async(req,resp,next)=>{
-const addClaim = await claim.create(req.body);
-    if(!addClaim){
-        return next(new AppError('claim not submitted try again',400))
-    }
-resp.status(200).json({
-    status:'success',
-    data:{
-        addClaim
-    }
+exports.sendClaim = async(req,resp)=>{
+    try{
+        console.log(req.body);
+        const Claim = await claim.create(req.body);
+        console.log(Claim);
+        resp.status(200).json({
+            status:'success',
+        Claim
+        })
+    }catch(err){
+resp.status(404).json({
+    status:'failure',
+    error:err
 })
-});
+    }
+
+    // if(!addClaim){
+    //     return next(new AppError('claim not submitted try again',400))
+    // }
+
+};
 
 exports.getOneClaim =  catchAsync(async (req,resp,next)=>{
     const id = req.params.id;

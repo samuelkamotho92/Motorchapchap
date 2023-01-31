@@ -1,6 +1,17 @@
-import React from 'react'
-
+import React,{useState,useEffect} from 'react';
 function ClaimTables() {
+	const [claim,setclaims] = useState('');
+	const getMyClaims = async ()=>{
+		const url = `http://localhost:8080/api/claim/getClaims`;
+		const resp = await fetch(url);
+		const {data} = await resp.json();
+		const  {getAllclaims} = data;
+		setclaims(getAllclaims);
+		console.log(getAllclaims);
+	}
+	useEffect(()=>{
+	getMyClaims();
+	},[]);
   return (
  <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
     <h2 className="mb-4 text-2xl font-semibold leading-tight"> Invoices</h2>
@@ -28,6 +39,9 @@ function ClaimTables() {
 				</tr>
 			</thead>
             <tbody>
+				{
+				claim?.map(item=>console.log(item))
+				}
 				<tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900">
 					<td className="p-3">
 						<p>97412378923</p>
