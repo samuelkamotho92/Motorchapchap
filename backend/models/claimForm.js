@@ -27,6 +27,9 @@ const claimForm = new Schema({
         type:String,
         enum:['approved','rejected','returned','pending'],
         default:'pending'
+    },
+    submittedBy:{
+        type:String
     }
 })
 

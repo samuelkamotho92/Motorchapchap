@@ -6,6 +6,7 @@ const claimRoute = express.Router();
 //getAuthController.protectRoutes,getAuthController.restrict('admin'),
 claimRoute.get('/getClaims',Claims.getClaims);
 claimRoute.post('/createClaim',Claims.sendClaim);
+claimRoute.post('/getMyClaims',Claims.getMyclaims);
 claimRoute.route('/getClaim/:id')
 .get(getAuthController.protectRoutes,getAuthController.restrict('admin'),Claims.getOneClaim)
 .patch(getAuthController.protectRoutes,getAuthController.restrict('admin'),Claims.updateClaim)

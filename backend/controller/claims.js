@@ -27,11 +27,28 @@ resp.status(404).json({
 })
     }
 
-    // if(!addClaim){
-    //     return next(new AppError('claim not submitted try again',400))
-    // }
-
 };
+
+exports.getMyclaims = async(req,resp)=>{
+    try{
+        const {email} = req.body;
+const getAllclaims = await claim.find({submittedBy:email});
+console.log(getAllclaims);
+resp.status(200).json({
+    status:'success',
+    data:{
+        getAllclaims
+    }
+})
+    }catch(err){
+resp.status(404).json({
+    status:'failure',
+    error:err
+})
+    }
+}
+
+
 
 exports.getOneClaim =  catchAsync(async (req,resp,next)=>{
     const id = req.params.id;
