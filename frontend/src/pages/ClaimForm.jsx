@@ -62,9 +62,18 @@ const resp = await fetch(url,
                 </div>
     
                 <div>
-                    <label class="text-blue-600 dark:text-gray-200">Vehicle Purpose</label>
-                    <input {...register('vehiclePurpose',{required:true})} type='text'/>
-                    {errors.purpose?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Vehicle purpose is required 😶</p>}
+                <label className="block text-black text-sm font-bold mb-1">
+                    Vehicle Purpose
+                    </label>
+                <select type="text" className="input input-warning "
+                value={formData?.vehiclePurpose} {...register("vehiclePurpose", { required: true })} onChange={e => setFormData({ ...formData, vehiclePurpose: e.target.value })}
+              >
+                <option defaultValue={'false'} disabled>
+Select Vehicle Purpose
+                </option>
+                <option value='personal'>personal</option>
+                <option value='psv'>psv</option>
+                </select>
                 </div>
             </div>
             <div class="flex justify-end mt-6">

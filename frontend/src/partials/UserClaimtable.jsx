@@ -5,13 +5,50 @@ import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 function UserClaimtable() {
   const { user } = useContext(UseAuthContext);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = (data)=>{
-    console.log(data);
-  };
-  let email = user.user.email;
   const [claim, setclaims] = useState("");
   const [showModal,setShowModal] = useState(false);
   const [formData, setFormData] = useState(null);
+  let email = user.user.email;
+  let id;
+  const onSubmit = (data)=>{
+    const {carOwner,registrationNo,vehicleType,vehiclePurpose} = data;
+    id = formData._id;
+    console.log(id);
+    const url = `http://localhost:8080/api/claim/getClaim/${id}`;
+  let uploadData = async ()=>{
+    const resp = await fetch(url,{
+      method:'PATCH',
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({carOwner,registrationNo,vehicleType,vehiclePurpose}),
+      credentials: 'include',
+      withCredentials:true
+    });
+const data = await resp.json();
+console.log(data);
+if(resp.ok){
+  alert('Claim updated successfully,redirected to home page');
+  window.location.replace('/');
+}
+if(!resp.ok){
+  alert('something is wrong');
+}
+    }
+    uploadData();
+  };
+
+  const deleteClaim = async(id)=>{
+    const url = `http://localhost:8080/api/claim/getClaim/${id}`;
+    console.log(url);
+    const resp = await fetch(url,
+      {
+        method:'DELETE',
+    });
+    console.log(resp);
+    if(resp.ok){
+      alert('deleted succesfully');
+      window.location.replace('/')
+    }
+  }
 
   const getFormValue = (item)=>{
     console.log(item._id);
@@ -102,9 +139,10 @@ setFormData(item);
                   <button  className="btn btn btn-info btn-sm btn-outline" id={item._id} onClick={() => getFormValue(item)
                         }>
                           <FaPencilAlt />
-                        </button>                  </td>
+                        </button> 
+                                         </td>
                   <td className="p-3 text-right">
-                  <button className="btn  btn-error btn-outline  btn-sm" id={item._id} value={item._id} onClick={() => handleDelete({ "id": item._id, "photo": item.photo })}>
+                  <button className="btn  btn-error btn-outline  btn-sm" id={item._id} value={item._id} onClick={() => deleteClaim(item._id)}>
                           <FaTrashAlt />
                         </button>
                   </td>
@@ -195,11 +233,16 @@ setFormData(item);
                    <label className="block text-black text-sm font-bold mb-1">
                     Vehicle Purpose
                     </label>
-                <input type="text" className="input input-warning "
+                <select type="text" className="input input-warning "
                 value={formData?.vehiclePurpose} {...register("vehiclePurpose", { required: true })} onChange={e => setFormData({ ...formData, vehiclePurpose: e.target.value })}
-              />
-              </form>
-                  <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+              >
+                <option defaultValue={'false'} disabled>
+Select Vehicle Purpose
+                </option>
+                <option value='personal'>personal</option>
+                <option value='psv'>psv</option>
+                </select>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1"
                     type="button"
@@ -209,12 +252,13 @@ setFormData(item);
                   </button>
                   <button
                     className="text-white bg-yellow-500 active:bg-yellow-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1"
-                    type="button"
-                    onClick={() => setShowModal(false)}
+                    type="submit"
                   >
                     Submit
                   </button>
                 </div>
+              </form>
+           
  </div>
  </div>
  </div>

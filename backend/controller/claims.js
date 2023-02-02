@@ -65,31 +65,45 @@ exports.getOneClaim =  catchAsync(async (req,resp,next)=>{
 })
 
 exports.updateClaim = catchAsync(async (req,resp)=>{
-    const id = req.params.id;
-    const updatedClaim = await claim.findByIdAndUpdate(id,req.body,{
-        new:true,
-        runValidators:true
-    });
-    if(!updatedClaim){
-        return next(new AppError('no document found',404));
+    try{
+        const id = req.params.id;
+        const updatedClaim = await claim.findByIdAndUpdate(id,req.body,{
+            new:true,
+            runValidators:true
+        });
+        console.log(id,updatedClaim);
+        resp.status(201).json({
+            status:"success",
+            data:{
+                updatedClaim
+            }
+        })
+    }catch(err){
+resp.status(404).json({
+    status:'failure',
+    error:err
+})
     }
-resp.status(201).json({
-        status:"success",
-        data:{
-            updatedClaim
-        }
-    })
 })
 
+
+
+
 exports.deleteClaim = catchAsync(async (req,resp)=>{
-    const id = req.params.id;
-    const deletedClaim = await claim.findByIdAndDelete(id);
-    if(!deletedClaim){
-        return next(new AppError('no document found',404));
+    try
+    {
+        const id = req.params.id;
+        const deletedClaim = await claim.findByIdAndDelete(id);
+        resp.status(204).json({
+            status:'deleted',
+            data:[]
+        })
+        console.log(deletedClaim);
+    }catch(err){
+
+        resp.status(404).json({
+            status:'failure',
+            error:err
+        })
     }
-    console.log(deletedClaim);
-    resp.status(204).json({
-        status:'deleted',
-        data:[]
-    })
 })
