@@ -26,7 +26,7 @@ function Home() {
         <Teams />
         <FeaturesBlocks />
         <Packages />
-        <Testimonials />
+      <Testimonials />
         <Newsletter />
 
       </main>

@@ -1,32 +1,59 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Header from '../partials/Header';
+import StripeCheckout from 'react-stripe-checkout';
+import  logo from '../images/Motorchapchap.png';
+import axios from 'axios';
 function Checkoutpage() {
+  const [stripeToken,setstripeToken] = useState(null);
+  const KEY = 'pk_test_51MX2dJFIqJP3zxtmcqkI1dHBfR0NM1RCn4CaYvHIGRKcTKOC94VFJaqy6zvHuDuWyHtJSImGKDevrPoNwMjvG3ZU00BgsbrGj3';
+const onToken = async(token)=>{
+  setstripeToken(token);
+  console.log(stripeToken);
+}
+console.log(stripeToken);
+useEffect(()=>{
+const makeRequest = async()=>{
+try{
+  const url =`http://localhost:8080/api/checkout/payments`;
+  const resp = await fetch(url,{
+    method:'POST',
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({tokenId:stripeToken.id,amount:5000}),
+    credentials:'include',
+    withCredentials:true
+  });
+  const data = await resp.json();
+  console.log(data);
+  window.location.replace('/');
+}catch(err){
+console.log(err);
+}
+}
+ stripeToken && makeRequest();
+console.log(stripeToken);
+
+},[stripeToken])
+
   return (
-    <div>
-<Header />
-<div className='flex items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800 p-8'>
-<div className='grid lg:grid-cols-3 md:grid-cols-2 gap-8 w-full max-w-screen-lg'>
-<div className='lg:col-span-2'>
-<h2 className='text-sm font-medium'>Payment Method</h2>
-<div class="bg-white rounded mt-4 shadow-lg">
-<div className='bg-white rounded mt-4 shadow-lg'>
-<div className="flex items-center px-8 py-5">
-						<input class="appearance-none w-4 h-4 rounded-full border-2 border-white ring-2 ring-blue-600 ring-opacity-100" type="radio" />
-						<label class="text-sm font-medium ml-4">PayPal</label>
-					</div>
-          <div className='border-t'>
-          <div class="flex items-center px-8 py-5">
-						<input class="appearance-none w-4 h-4 rounded-full border-2 border-white ring-2 ring-blue-600 ring-opacity-100 bg-blue-600" type="radio" />
-						<label class="text-sm font-medium ml-4">Credit Card</label>
-					</div>
-          
-          </div>
+<div className='flex justify-center'>
+{/* <Header /> */}
+{stripeToken ? (<span> Processing please wait</span>):
+(
+<StripeCheckout 
+name='Motorchapchap'
+image={logo}
+billingAddress
+shippingAddress
+description='Pay for your package'
+amount={5000}
+token={onToken}
+stripeKey={KEY}
+>
+<button className='btn btn-info btn-outline'>Pay 1 to upgrade to Premium Tier</button>
+</StripeCheckout>
+)}
+
 </div>
-</div>
-</div>
-</div>
-</div>
-    </div>
   )
 }
 

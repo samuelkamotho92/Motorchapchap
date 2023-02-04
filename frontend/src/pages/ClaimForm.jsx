@@ -1,9 +1,10 @@
-import React,{useContext} from 'react'
+import React,{useContext, useState} from 'react'
 import UserSidebar from '../partials/UserSidebar'
 import {useForm} from 'react-hook-form'
 import { UseAuthContext } from '../context/Authcontext';
 function ClaimForm() {
   const {user} = useContext(UseAuthContext);
+  const {formData,setFormData} = useState('');
   let submittedBy = user.user.email;
   console.log(submittedBy);
   const {register,handleSubmit,watch,formState:{errors}} = useForm({

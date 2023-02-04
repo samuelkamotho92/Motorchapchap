@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 function Packages() {
   return (
     <div>
@@ -33,10 +33,10 @@ function Packages() {
           <span className="ml-3">Hanldes <span className="text-black"> Third party physical  injuries </span></span>
         </li>
       </ul>
-      <a href="#/" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
+      <Link to="/checkout" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
         Choose Plan
         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" className="ml-2" />
-      </a>
+      </Link>
     </div>
     
     <div className="w-full flex-1 p-8 order-1 shadow-xl rounded-3xl bg-gray-900 text-gray-400 sm:w-96 lg:w-full lg:order-2 lg:mt-0">
@@ -61,10 +61,10 @@ function Packages() {
           <span className="ml-3">Compensate for<span className="text-white"> vehicle stolen</span></span>
         </li>
       </ul>
-      <a href="#/" className="flex justify-center items-center bg-indigo-600 rounded-xl py-6 px-4 text-center text-white text-2xl">
+      <Link to="/checkout" className="flex justify-center items-center bg-indigo-600 rounded-xl py-6 px-4 text-center text-white text-2xl">
         Choose Plan
         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" className="ml-2" />
-      </a>
+      </Link>
     </div>
     
     <div className="w-full flex-1 mt-8 p-8 order-3 bg-red-400 shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-3 lg:rounded-l-none h-94">
@@ -89,14 +89,12 @@ function Packages() {
           <span className="ml-3"><span className="text-black">Caters</span> for all damages on your vehicle and you</span>
         </li>
       </ul>
-      <a href="#/" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
+      <Link to="/checkout" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
         Choose Plan
         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" className="ml-2" />
-      </a>
+      </Link>
     </div>
-    
   </div>
-  
 </main>
     </div>
   )
