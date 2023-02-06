@@ -85,6 +85,23 @@ resp.status(404).json({
 })
     }
 })
+exports.getApproved = catchAsync(async(req,resp)=>{
+    const myApproved = await claim.find({status:"approved"})
+console.log(myApproved)
+    try{
+    resp.status(200).json({
+status:'success',
+data:{
+    myApproved
+}
+    })
+}catch(err){
+    resp.status(404).json({
+        status:'failure',
+        error:err
+    })
+}
+})
 
 
 

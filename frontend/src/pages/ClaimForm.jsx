@@ -15,13 +15,13 @@ function ClaimForm() {
   });
   const url = `http://localhost:8080/api/claim/createClaim`;
   const onSubmit =  async(data)=>{
-const {carOwner,registrationNo,vehicleType,purpose} = data;
-console.log(carOwner,registrationNo,vehicleType,purpose);
+const {carOwner,registrationNo,vehicleType,purpose,insuranceCover,phoneNumber} = data;
+console.log(carOwner,registrationNo,vehicleType,purpose,phoneNumber);
 const resp = await fetch(url,
   {
     method:'POST',
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({carOwner,registrationNo,vehicleType,purpose,submittedBy}),
+    body:JSON.stringify({carOwner,registrationNo,vehicleType,purpose,submittedBy,insuranceCover,phoneNumber}),
     credentials:'include',
     withCredentials:true
   })
@@ -45,6 +45,14 @@ const resp = await fetch(url,
                     <input {...register('carOwner',{required:true})} type='text' />
                     {errors.carOwner?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Car Owner is required 😶</p>}
 
+                </div>
+                <div>
+                    <label class="text-blue-600 dark:text-gray-200">Phone Number</label>
+                    <input {...register('phoneNumber',{required:true,minLength:{
+                      value:10,
+                      message:'min length is less than 10'
+                    }})} type='text'/>
+                    {errors.phoneNumber?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Phone number is required 😶</p>}
                 </div>
       <div>
                     <label class="text-blue-600 dark:text-gray-200">Registration Number</label>
@@ -74,6 +82,21 @@ Select Vehicle Purpose
                 </option>
                 <option value='personal'>personal</option>
                 <option value='psv'>psv</option>
+                </select>
+                </div>
+                <div>
+                <label className="block text-black text-sm font-bold mb-1">
+                    Type of insurance Cover
+                    </label>
+                <select type="text" className="input input-warning "
+                value={formData?.insuranceCover} {...register("insuranceCover", { required: true })} onChange={e => setFormData({ ...formData, insuranceCover: e.target.value })}
+              >
+                <option defaultValue={'false'} disabled>
+Select Type of Insurance Cover
+                </option>
+                <option value='third party only'>third party only</option>
+                <option value='third party fire and theft'>third party fire and theft</option>
+                <option value='comprehensive'>Comprehensive</option>
                 </select>
                 </div>
             </div>

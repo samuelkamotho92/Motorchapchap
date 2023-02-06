@@ -33,7 +33,7 @@ function Packages() {
           <span className="ml-3">Hanldes <span className="text-black"> Third party physical  injuries </span></span>
         </li>
       </ul>
-      <Link to="/checkout" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
+      <Link to="/insurance Cover" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
         Choose Plan
         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" className="ml-2" />
       </Link>
@@ -61,7 +61,7 @@ function Packages() {
           <span className="ml-3">Compensate for<span className="text-white"> vehicle stolen</span></span>
         </li>
       </ul>
-      <Link to="/checkout" className="flex justify-center items-center bg-indigo-600 rounded-xl py-6 px-4 text-center text-white text-2xl">
+      <Link to="/InsuranceCover" className="flex justify-center items-center bg-indigo-600 rounded-xl py-6 px-4 text-center text-white text-2xl">
         Choose Plan
         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" className="ml-2" />
       </Link>
@@ -89,7 +89,7 @@ function Packages() {
           <span className="ml-3"><span className="text-black">Caters</span> for all damages on your vehicle and you</span>
         </li>
       </ul>
-      <Link to="/checkout" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
+      <Link to="/insuranceCover" className="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
         Choose Plan
         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" className="ml-2" />
       </Link>

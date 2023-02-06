@@ -5,6 +5,12 @@ const claimForm = new Schema({
         type:String,
         required:[true,'please enter the car owner']
     },
+    phoneNumber:{
+        type:String,
+        required:[true,'please enter car owner phone number'],
+        default:'07xx xxx xxx'
+    
+    },
     registrationNo:{
         type:String,
         required:[true,'please enter registration number']
@@ -19,6 +25,11 @@ const claimForm = new Schema({
         default:'personal',
         required:[true,'please enter the purpose of vehicle']
     },
+    amount:{
+        type:String,
+        enum:['5000','7500','10000','not yet paid'],
+        default:'not yet paid'
+    },
     dateSubmitted:{
         type:Date,
         default:Date.now()
@@ -28,8 +39,18 @@ const claimForm = new Schema({
         enum:['approved','rejected','returned','pending'],
         default:'pending'
     },
+    paymentStatus:{
+        type:String,
+        enum:['paid','pending','expired'],
+        default:'pending'
+    },
     submittedBy:{
         type:String
+    },
+    insuranceCover:{
+        type:String,
+        enum:['third party only','third party fire and theft','comprehensive'],
+        default:'third party only'
     }
 })
 

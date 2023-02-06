@@ -11,7 +11,7 @@ function UserClaimtable() {
   let email = user.user.email;
   let id;
   const onSubmit = (data)=>{
-    const {carOwner,registrationNo,vehicleType,vehiclePurpose} = data;
+    const {carOwner,registrationNo,vehicleType,vehiclePurpose,insuranceCover} = data;
     id = formData._id;
     console.log(id);
     const url = `http://localhost:8080/api/claim/getClaim/${id}`;
@@ -19,7 +19,7 @@ function UserClaimtable() {
     const resp = await fetch(url,{
       method:'PATCH',
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({carOwner,registrationNo,vehicleType,vehiclePurpose}),
+      body:JSON.stringify({carOwner,registrationNo,vehicleType,vehiclePurpose,insuranceCover}),
       credentials: 'include',
       withCredentials:true
     });
@@ -82,50 +82,46 @@ setFormData(item);
       </h2>
       <div className="overflow-x-auto">
         <table className="min-w-full text-xs">
-          <colgroup>
-            <col />
-            <col />
-            <col />
-            <col />
-            <col />
-            <col className="w-24" />
-          </colgroup>
           <thead className="dark:bg-gray-700">
             <tr className="text-left">
-              <th className="p-3">Claim ID</th>
-              <th className="p-3">Car Owner</th>
-              <th className="p-3">Reg no</th>
-              <th className="p-3">Vehicle Type</th>
-              <th className="p-3">Vehicle Purpose</th>
-              <th className="p-3">Submitted On</th>
-              <th className="p-3">Status</th>
-              <th className="p-3">UPDATE</th>
-              <th className="p-3">DELETE</th>
+              <th className="p-2">Claim ID</th>
+              <th className="p-2">Car Owner</th>
+              <th className="p-2">Reg no</th>
+              <th className="p-2">Vehicle Type</th>
+              <th className="p-2">Vehicle Purpose</th>
+              <th className="p-2">Insurance Plan</th>
+              <th className="p-2">Submitted On</th>
+              <th className="p-2">Status</th>
+              <th className="p-2">UPDATE</th>
+              <th className="p-2">DELETE</th>
             </tr>
           </thead>
           <tbody>
             {arrclaim.map((item,index) => (
               <>
                 <tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900" key={index}>
-                  <td className="p-3">
-                    <p>{item._id}</p>
+                  <td className="p-2">
+                    <p>{item._id.slice(0,7)}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-2">
                     <p>{item.carOwner}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-2">
                     <p>{item.registrationNo}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-2">
                     <p>{item.vehicleType}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-2">
                     <p>{item.vehiclePurpose}</p>
                   </td>
-                  <td className="p-3">
+                  <td className="p-2">
+                    <p>{item.insuranceCover}</p>
+                  </td>
+                  <td className="p-2">
                     <p>{item.dateSubmitted}</p>
                   </td>
-                  <td className="p-3 text-right">
+                  <td className="p-2 text-right">
                     <span className="px-3 py-1 font-semibold rounded-md dark:bg-purple-400 dark:text-gray-900">
                       <button
                         className="btn btn-primary"
@@ -135,13 +131,13 @@ setFormData(item);
                       </button>
                     </span>
                   </td>
-                  <td className="p-3 text-right">
+                  <td className="p-2 text-right">
                   <button  className="btn btn btn-info btn-sm btn-outline" id={item._id} onClick={() => getFormValue(item)
                         }>
                           <FaPencilAlt />
                         </button> 
                                          </td>
-                  <td className="p-3 text-right">
+                  <td className="p-2 text-right">
                   <button className="btn  btn-error btn-outline  btn-sm" id={item._id} value={item._id} onClick={() => deleteClaim(item._id)}>
                           <FaTrashAlt />
                         </button>
@@ -230,6 +226,22 @@ setFormData(item);
                 <input type="text" className="input input-warning "
                 value={formData?.vehicleType} {...register("vehicleType", { required: true })} onChange={e => setFormData({ ...formData, vehicleType: e.target.value })}
               />
+     <label className="block text-black text-sm font-bold mb-1">
+                    Insurance Cover
+                    </label>
+                    <select type="text" className="input input-warning "
+                value={formData?.insuranceCover} {...register("insuranceCover", { required: true })} onChange={e => setFormData({ ...formData, insuranceCover: e.target.value })}
+              >
+                <option defaultValue={'false'} disabled>
+                 Select Insurance Cover
+                </option>
+                <option value='third party only'>third party only</option>
+                <option value='third party fire and theft'>third party fire and theft</option>
+                <option value='comprehensive'>Comprehensive</option>
+                </select>
+
+
+
                    <label className="block text-black text-sm font-bold mb-1">
                     Vehicle Purpose
                     </label>

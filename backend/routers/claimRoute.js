@@ -12,6 +12,7 @@ claimRoute.route('/getClaim/:id')
 .get(getAuthController.protectRoutes,getAuthController.restrict('admin'),Claims.getOneClaim)
 .patch(Claims.updateClaim)
 .delete(Claims.deleteClaim)
-
+claimRoute
+.get('/getApproved',Claims.getApproved)
 
 module.exports = claimRoute;
