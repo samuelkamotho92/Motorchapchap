@@ -56,8 +56,8 @@ const url = `http://localhost:8080/api/claim/getClaim/${claimId}`;
     }
     updateDetails();
   }
-  // alert('payment made successfuly');
-  // window.location.replace('/');
+  alert('payment made successfuly');
+  window.location.replace('/');
 }catch(err){
 console.log(err);
 }
