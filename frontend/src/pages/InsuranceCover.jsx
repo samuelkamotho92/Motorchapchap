@@ -14,6 +14,8 @@ console.log(data);
 setapproveClaim(data);
 }
 let appr = Object.values(approvedClaims);
+console.log(appr);
+
     useEffect(()=>{
 getAllApproved();
     },[])
@@ -21,7 +23,7 @@ getAllApproved();
 
 
   return (
-    <div className='flex flex-row mt-60px h-screen bg-base-200'>
+<div className='flex flex-row mt-60px h-screen bg-base-200'>
         <UserSidebar />
 <div className='container p-2 mx-auto sm:p-4 dark:text-gray-100'>
 <h2 className='mb-4 text-2xl font-semibold leading-tight'>
@@ -44,7 +46,7 @@ getAllApproved();
 </thead>
 <tbody>
     {
-        appr.map((item,index)=>(
+appr.map((item,index)=>(    
 <tr className='border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900' key={index}>
 <>
 <td className='p-2'>
@@ -69,8 +71,8 @@ getAllApproved();
     <p>{item.paymentStatus}</p>
 </td>
 <td>
-
-    <Link to='/checkout'>
+<Link to='/checkout'
+state={{cover:item.insuranceCover,claimId:item._id}}>
 <button className="btn btn btn-info btn-sm btn-outline" 
 >
     <FaShoppingCart />

@@ -3,10 +3,19 @@ import Header from '../partials/Header';
 import StripeCheckout from 'react-stripe-checkout';
 import logo from '../images/Motorchapchap.png';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 function Checkoutpage() {
+  const location = useLocation();
+  const {cover} = location.state;
+  const {claimId} = location.state;
+  console.log(cover,claimId);
   const [stripeToken,setstripeToken] = useState(null);
   const KEY = 'pk_test_51MX2dJFIqJP3zxtmcqkI1dHBfR0NM1RCn4CaYvHIGRKcTKOC94VFJaqy6zvHuDuWyHtJSImGKDevrPoNwMjvG3ZU00BgsbrGj3';
-const onToken = async(token)=>{
+
+  let amount = cover == "third party only"?"5000":cover == "comprehensive"?"10000":"75000";
+  console.log(amount);
+
+  const onToken = async(token)=>{
   setstripeToken(token);
   console.log(stripeToken);
 }
@@ -18,13 +27,37 @@ try{
   const resp = await fetch(url,{
     method:'POST',
     headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({tokenId:stripeToken.id,amount:5000}),
+    body:JSON.stringify({
+      tokenId:stripeToken.id,
+      amount:amount
+    }),
     credentials:'include',
     withCredentials:true
   });
   const data = await resp.json();
   console.log(data);
-  window.location.replace('/');
+  if(resp.ok){
+    //caryout another fetch
+    const updateDetails = async()=>{
+const url = `http://localhost:8080/api/claim/getClaim/${claimId}`;
+      console.log(url);
+      const resp = await fetch(url,{
+        method:'PATCH',
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+          amount:amount,
+          paymentStatus:"paid"
+        }),
+        credentials:'include',
+      withCredentials:true
+      })
+      const data = await resp.json();
+      console.log(data);
+    }
+    updateDetails();
+  }
+  // alert('payment made successfuly');
+  // window.location.replace('/');
 }catch(err){
 console.log(err);
 }
@@ -65,8 +98,8 @@ console.log(stripeToken);
                     </div> 
                     <div x-show="card">
                         <div className="mt-6">
-                                                    <div className='mb-4'>
-{stripeToken ? (<span> Processing please wait</span>):
+              <div className='mb-4'>
+{stripeToken ? (<span style={{color:'purple'}}>Payment Made succesfully</span>):
 (
 <StripeCheckout 
 name='Motorchapchap'
@@ -74,7 +107,7 @@ image={logo}
 billingAddress
 shippingAddress
 description='Pay for your package'
-amount={5000}
+amount={amount}
 token={onToken}
 stripeKey={KEY}
 >

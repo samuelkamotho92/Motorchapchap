@@ -64,9 +64,10 @@ exports.getOneClaim =  catchAsync(async (req,resp,next)=>{
     })
 })
 
-exports.updateClaim = catchAsync(async (req,resp)=>{
+exports.updateClaim = async (req,resp)=>{
     try{
         const id = req.params.id;
+        console.log(id,req.body,'from update claim');
         const updatedClaim = await claim.findByIdAndUpdate(id,req.body,{
             new:true,
             runValidators:true
@@ -84,7 +85,7 @@ resp.status(404).json({
     error:err
 })
     }
-})
+}
 exports.getApproved = catchAsync(async(req,resp)=>{
     const myApproved = await claim.find({status:"approved"})
 console.log(myApproved)
