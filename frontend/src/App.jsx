@@ -21,6 +21,7 @@ import ClaimDetails from './pages/ClaimDetails';
 import UserClaim from './pages/UserClaim';
 import Checkout from './pages/Checkoutpage';
 import InsuranceCover from './pages/InsuranceCover';
+import CoverPage from './pages/CoverPage';
 function App() {
 
   const location = useLocation();
@@ -54,6 +55,7 @@ function App() {
       <Route path='/userclaimDetails' element={<UserClaim />}></Route>
       <Route path='/checkout' element={<Checkout />}></Route>
       <Route path='/insuranceCover' element={<InsuranceCover />}></Route>
+      <Route path='/coverPage' element={<CoverPage />}></Route>
       </Routes>
     </>
   );

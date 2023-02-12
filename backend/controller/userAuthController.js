@@ -75,9 +75,7 @@ exports.userSignUp = catchAsync(async (req, resp) => {
     resp.status(200).json({
       status: "success",
       mesage: "data sent succefully",
-      data: {
-        userData,
-      },
+      user: userData,
       token: tk,
     });
   } catch (err) {

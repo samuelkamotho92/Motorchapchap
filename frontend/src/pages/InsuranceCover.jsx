@@ -81,7 +81,12 @@ state={{cover:item.insuranceCover,claimId:item._id}}>
 </td>
 <td>
 <button className='btn btn btn-info btn-sm btn-outline'>
-<FaDownload />
+    <Link
+     to='/coverPage'
+     state={{cover:item.insuranceCover,claimId:item._id}}
+    >
+    <FaDownload />
+    </Link>
 </button>
 </td>
 </>

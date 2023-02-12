@@ -16,6 +16,7 @@ import { UseAuthHook } from './UserAuthHook';
           withCredentials:true
         });
         const data = await resp.json();
+        console.log(data);
         if(!resp.ok){
             console.log(data.error)
       const myError =  Object.values(data.error);
