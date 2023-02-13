@@ -50,19 +50,24 @@ resp.status(404).json({
 
 
 
-exports.getOneClaim =  catchAsync(async (req,resp,next)=>{
-    const id = req.params.id;
-    const getOneClaim = await claim.findById(id);
-    if(!getOneClaim){
-        return next(new AppError('no document found',404));
+exports.getOneClaim = async (req,resp,next)=>{
+    try{
+        const id = req.params.id;
+        const getOneClaim = await claim.findById(id);
+        resp.status(200).json({
+            status:'success',
+            data:{
+                getOneClaim
+            }
+        })
+    }catch(err){
+        resp.status(404).json({
+            status:'failure',
+            error:err
+        })
     }
-    resp.status(200).json({
-        status:'success',
-        data:{
-            getOneClaim
-        }
-    })
-})
+
+}
 
 exports.updateClaim = async (req,resp)=>{
     try{

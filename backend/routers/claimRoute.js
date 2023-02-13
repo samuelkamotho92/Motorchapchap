@@ -9,7 +9,7 @@ claimRoute.get('/getClaims',Claims.getClaims);
 claimRoute.post('/createClaim',Claims.sendClaim);
 claimRoute.post('/getMyClaims',Claims.getMyclaims);
 claimRoute.route('/getClaim/:id')
-.get(getAuthController.protectRoutes,getAuthController.restrict('admin'),Claims.getOneClaim)
+.get(Claims.getOneClaim)
 .patch(Claims.updateClaim)
 .delete(Claims.deleteClaim)
 claimRoute
