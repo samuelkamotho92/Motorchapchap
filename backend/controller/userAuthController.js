@@ -88,41 +88,30 @@ exports.userSignUp = catchAsync(async (req, resp) => {
   }
 });
 
-exports.userLogin = catchAsync(async (req, resp, next) => {
+exports.userLogin = async (req, resp) => {
     try{
-        const { email, password } = req.body;
-        console.log(email, password);
-        const getUser = await User.findOne({ email });
+        const { useremail, password } = req.body;
+        console.log(useremail, password);
+        const getUser = await User.findOne({email:useremail});
+        console.log(getUser);
         const id = getUser._id;
         const tk = createJWT(id);
         resp.cookie("motorchapchap", tk, { httpOnly: true, maxAge: maxAge * 1000 });
         const correct = await getUser.correctPassword(password, getUser.password);
         if(correct){
             resp.status(200).json({
-                status: "success",
-                message: "user logged in",
                 user:getUser,
-                token: tk,
+                token: tk
               });
         }
     }catch(err){
-        const errorMess = handleError(err);
+        // const errorMess = handleError(err);
 resp.status(404).json({
     status:'failure',
-error:errorMess
+error:err
 })
     }
-
-//   if (!email || !password) {
-//     return next(new AppError("provide email and password", 400));
-//   }
-
-  console.log(correct);
-//   if (!getUser || !correct) {
-//     return next(new AppError("incorrect email or password", 401));
-//   }
-
-});
+};
 
 //user protection
 

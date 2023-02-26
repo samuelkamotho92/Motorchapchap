@@ -8,7 +8,7 @@ const claimRoute = express.Router();
 claimRoute.get('/getClaims',Claims.getClaims);
 claimRoute.post('/createClaim',Claims.sendClaim);
 claimRoute.post('/getMyClaims',Claims.getMyclaims);
-claimRoute.route('/getClaim/:id')
+claimRoute.route('/:id')
 .get(Claims.getOneClaim)
 .patch(Claims.updateClaim)
 .delete(Claims.deleteClaim)

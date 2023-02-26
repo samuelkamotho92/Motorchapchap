@@ -4,7 +4,6 @@ const AppError = require('../utility/AppError')
 exports.getClaims = async(req,resp)=>{
 const getAllclaims = await claim.find();
 resp.status(200).json({
-    status:'success',
     data:{
         getAllclaims
     }
@@ -92,11 +91,11 @@ resp.status(404).json({
     }
 }
 exports.getApproved = catchAsync(async(req,resp)=>{
-    const myApproved = await claim.find({status:"approved"})
+    const query = req.query.paid;
+    const myApproved = query ? await claim.find({paymentStatus:"paid"}):await claim.find({status:"approved"})
 console.log(myApproved)
     try{
     resp.status(200).json({
-status:'success',
 data:{
     myApproved
 }
