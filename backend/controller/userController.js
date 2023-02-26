@@ -43,7 +43,7 @@ exports.updateUser = catchAsync(async (req,resp)=>{
             }
         })
     }catch(err){
-        resp.status(200).json({
+        resp.status(404).json({
             status:'failure',
             error:err
         })

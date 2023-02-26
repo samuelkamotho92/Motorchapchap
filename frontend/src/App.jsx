@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {
+  BrowserRouter as Router,
   Routes,
   Route,
   useLocation
@@ -7,7 +8,7 @@ import {
 
 import 'aos/dist/aos.css';
 import './css/style.css';
-
+import './App.css';
 import AOS from 'aos';
 
 import Home from './pages/Home';
