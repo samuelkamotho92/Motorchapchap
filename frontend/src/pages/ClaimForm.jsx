@@ -55,14 +55,13 @@ const resp = await fetch(url,
                     {errors.phoneNumber?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Phone number is required 😶</p>}
                 </div>
       <div>
-                    <label class="text-blue-600 dark:text-gray-200">Registration Number</label>
+                    <label class="text-blue-600 dark:text-gray-200">RegNo</label>
                     <input {...register('registrationNo',{required:true,minLength:{
                       value:6,
                       message:'min length is less than 6'
                     }})} type='text'/>
                     {errors.registrationNo?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">Regsitration number is required 😶</p>}
                 </div>
-    
                 <div>
                     <label class="text-blue-600 dark:text-gray-200">Vehicle Type</label>
                     <input {...register('vehicleType',{required:true})} type='text'/>

@@ -4,18 +4,20 @@ import { UseAuthHook } from './UserAuthHook';
     const [error,setError] = useState(null);
     const [loading,setLoading] = useState(null);
     const {dispatch} = UseAuthHook()
-    const signIn = async(email,password)=>{
+    const signIn = async(useremail,password)=>{
+        console.log(useremail,password);
         setError(null);
         setLoading(true);
         const url = 'http://localhost:8080/api/Auth/signIn'
         const resp = await fetch(url,{
         method:'POST',
         headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({email,password}),
+          body:JSON.stringify({useremail,password}),
           credentials: 'include',
           withCredentials:true
         });
         const data = await resp.json();
+        console.log(data);
         const {user} = data;
         console.log(data,user);
         console.log(resp.ok);

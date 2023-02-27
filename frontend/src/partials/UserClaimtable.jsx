@@ -14,7 +14,7 @@ function UserClaimtable() {
     const {carOwner,registrationNo,vehicleType,vehiclePurpose,insuranceCover} = data;
     id = formData._id;
     console.log(id);
-    const url = `http://localhost:8080/api/claim/getClaim/${id}`;
+    const url = `http://localhost:8080/api/claim/${id}`;
   let uploadData = async ()=>{
     const resp = await fetch(url,{
       method:'PATCH',
@@ -37,7 +37,7 @@ if(!resp.ok){
   };
 
   const deleteClaim = async(id)=>{
-    const url = `http://localhost:8080/api/claim/getClaim/${id}`;
+    const url = `http://localhost:8080/api/claim/${id}`;
     console.log(url);
     const resp = await fetch(url,
       {

@@ -23,7 +23,9 @@ const handleChange = (e)=>{
 }
 
 const handleClick = (e)=>{
+  console.log('updating');
 e.preventDefault();
+console.log({...inputs});
 const updatedClaim = {...inputs}
 updateClaim(claimId,updatedClaim,dispatch)
 }
@@ -62,9 +64,9 @@ updateClaim(claimId,updatedClaim,dispatch)
                 <label>Car Owner</label>
                 <input type="text" name='carOwner' placeholder={claim.carOwner} onChange={handleChange}/>
                 <label>Phone Number</label>
-                <input type="number" name='phoneNumber' placeholder={claim.phoneNumber} onChange={handleChange}/>
+                <input type="number" name='phoneNumber' placeholder={claim.phoneNumber} onChange={handleChange} />
                  <label>Registration</label>
-            <input type="text" name='registrationNo' placeholder={claim.registrationNo} onChange={handleChange}/>
+            <input type="text" name='registrationNo' placeholder={claim.registrationNo} onChange={handleChange} />
             <label>Vehicle Type</label>
             <input type="text" name='vehicleType' placeholder={claim.vehicleType} onChange={handleChange} />
             <label>Vehicle Purpose</label>

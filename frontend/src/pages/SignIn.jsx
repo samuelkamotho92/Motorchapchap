@@ -11,10 +11,10 @@ function SignIn() {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const {signIn,error,loading} = signInhook()
   const onSubmit = async (data,e)=>{
-    const {email,password} = data
-    console.log(email,password);
+    const {useremail,password} = data
+    console.log(useremail,password);
     e.preventDefault()
-await signIn(email,password);
+await signIn(useremail,password);
   }
   return (
     <div className="flex flex-col min-h-screen overflow-hidden">
@@ -40,8 +40,8 @@ await signIn(email,password);
                   <div className="flex flex-wrap -mx-3 mb-4">
                     <div className="w-full px-3">
                       <label className="block text-gray-800 text-sm font-medium mb-1" htmlFor="email">Email</label>
-                      <input {...register('email',{required:true})} type="email" className="form-input w-full text-gray-800" placeholder="Enter your email address" required />
-                      {errors.email?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">email is required 😶</p>}
+                      <input {...register('useremail',{required:true})} type="email" className="form-input w-full text-gray-800" placeholder="Enter your email address" required />
+                      {errors.useremail?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">email is required 😶</p>}
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-4">

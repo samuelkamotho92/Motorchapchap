@@ -3,8 +3,11 @@ import Modal from '../utils/Modal';
 
 import HeroImage from '../images/hero-image.png';
 import Motorchapchap from '../images/Motorchapchap.png';
+import {Link} from 'react-router-dom';
+import { UseAuthContext } from '../context/Authcontext';
+import { useContext } from 'react';
 function HeroHome() {
-
+const {user,dispatch} = useContext(UseAuthContext);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   return (
@@ -38,14 +41,20 @@ function HeroHome() {
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400 text-5xl">Fast insurance cover and compensation plan</span></h1>
             <div className="max-w-3xl mx-auto">
               <p className="text-xl text-gray-600 mb-8" data-aos="zoom-y-out" data-aos-delay="150">Ranked as one of the best Insurance Company in kenya,we offer automated insurance cover. No need to make long queues</p>
-              <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
+           {
+            !user &&(
+              <>
+                  <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
                 <div>
-                  <a className="btn text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0" href="#0">Register</a>
+                  <Link className="btn text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0" to="/signup">Register</Link>
                 </div>
                 <div>
-                  <a className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4" href="#0">Log In</a>
+                  <Link className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4" to="/signin">Log In</Link>
                 </div>
               </div>
+              </>
+            )
+           }      
             </div>
           </div>
 

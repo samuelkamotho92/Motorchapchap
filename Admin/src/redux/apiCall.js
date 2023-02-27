@@ -39,8 +39,17 @@ export const login = async (dispatch, user) => {
   try {
     console.log(dispatch,user);
     const res = await publicRequest.post("Auth/signIn", user);
+    console.log(res.data.user.role);
       dispatch(loginSuccess(res.data));
-
+      let admin = res.data.user.role
+if(res.data.user.role === 'admin'){
+ localStorage.setItem('loggedIn',res.data.user.role)
+  alert('logged in as Admin');
+  window.location.replace('/');
+}else{
+  alert('Wrong creditials Only admins Allowed');
+  dispatch(loginFailure());
+}
   } catch (err) {
     dispatch(loginFailure());
   }
@@ -73,9 +82,10 @@ export const updateClaim = async (id, updatedClaim, dispatch) => {
   dispatch(updateClaimStart());
   try {
     //update in mongodb
-    await userRequest.patch(`/claim/${id}`,updatedClaim)
+  const res =   await userRequest.patch(`/claim/${id}`,updatedClaim);
+  console.log(res)
     // update in our state.
-    dispatch(updateClaimSuccess({ id, updatedClaim }));
+    // dispatch(updateClaimSuccess({ id, updatedClaim }));
   } catch (err) {
     dispatch(updateClaimFailure());
   }
