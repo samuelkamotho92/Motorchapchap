@@ -85,7 +85,7 @@ export const updateClaim = async (id, updatedClaim, dispatch) => {
   const res =   await userRequest.patch(`/claim/${id}`,updatedClaim);
   console.log(res)
     // update in our state.
-    // dispatch(updateClaimSuccess({ id, updatedClaim }));
+    dispatch(updateClaimSuccess({ id, updatedClaim }));
   } catch (err) {
     dispatch(updateClaimFailure());
   }

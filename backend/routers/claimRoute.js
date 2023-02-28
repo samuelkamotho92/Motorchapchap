@@ -3,7 +3,7 @@ const Claims = require('../controller/claims');
 const getAuthController = require('../controller/userAuthController');
 const claimRoute = express.Router();
 claimRoute.get('/getClaims',Claims.getClaims);
-claimRoute.get('/getApproved',Claims.getApproved);
+claimRoute.post('/getApproved',Claims.getApproved);
 claimRoute.post('/createClaim',Claims.sendClaim);
 claimRoute.post('/getMyClaims',Claims.getMyclaims);
 claimRoute.route('/:id')

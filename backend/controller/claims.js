@@ -77,24 +77,25 @@ exports.updateClaim = async (req,resp)=>{
             runValidators:true
         });
         console.log(id,updatedClaim);
-        // resp.status(201).json({
-        //     status:"success",
-        //     data:{
-        //         updatedClaim
-        //     }
-        // })
+        resp.status(201).json({
+            status:"success",
+            data:{
+                updatedClaim
+            }
+        })
     }catch(err){
-// resp.status(404).json({
-//     status:'failure',
-//     error:err
-// })
+resp.status(404).json({
+    status:'failure',
+    error:err
+})
     }
 }
 exports.getApproved = async(req,resp)=>{
+    const {email} = req.body;
     //query ? await claim.find({paymentStatus:"paid"}):
     console.log('get all data');
     const query = req.query.paid;
-    const myApproved = query ? await claim.find({paymentStatus:"paid"}): await claim.find({status:"approved"});
+    const myApproved = query ? await claim.find({paymentStatus:"paid"}): await claim.find({status:"approved",submittedBy:email});
     console.log(myApproved);
 
     try{

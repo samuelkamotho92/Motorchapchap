@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { UseAuthContext } from "../context/Authcontext";
 import {useForm} from 'react-hook-form';
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+
 function UserClaimtable() {
   const { user } = useContext(UseAuthContext);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();

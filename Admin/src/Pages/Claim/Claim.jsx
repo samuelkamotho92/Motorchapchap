@@ -18,6 +18,7 @@ console.log(claim);
 const [inputs ,setInputs] = useState();
 const handleChange = (e)=>{
     setInputs((prev)=>{
+      console.log({...prev,[e.target.name]:e.target.value})
         return {...prev,[e.target.name]:e.target.value}
     })
 }
@@ -28,6 +29,8 @@ e.preventDefault();
 console.log({...inputs});
 const updatedClaim = {...inputs}
 updateClaim(claimId,updatedClaim,dispatch)
+alert('user updated');
+window.location.replace('/');
 }
   return (
     <div className="product">
@@ -70,27 +73,27 @@ updateClaim(claimId,updatedClaim,dispatch)
             <label>Vehicle Type</label>
             <input type="text" name='vehicleType' placeholder={claim.vehicleType} onChange={handleChange} />
             <label>Vehicle Purpose</label>
-    <select defaultValue={claim.vehiclePurpose} onChange={handleChange}>
+    <select defaultValue={claim.vehiclePurpose} onChange={handleChange} name='vehiclePurpose'>
   <option value={claim.vehiclePurpose} disabled>{claim.vehiclePurpose}</option>
   <option value="personal">Personal</option>
   <option value="psv">PSV</option>
 </select>
 <label>Insurance Cover</label>
-    <select defaultValue={claim.insuranceCover} onChange={handleChange}>
+    <select defaultValue={claim.insuranceCover} onChange={handleChange} name='insuranceCover'>
   <option value={claim.insuranceCover} disabled>{claim.insuranceCover}</option>
   <option value="third party only">third party only</option>
   <option value="third party fire and theft">third party fire and theft</option>
   <option value="comprehensive">comprehensive</option>
 </select>
 <label>Payment Status</label>
-    <select defaultValue={claim.paymentStatus} onChange={handleChange}>
+    <select defaultValue={claim.paymentStatus} onChange={handleChange} name="paymentStatus">
   <option value={claim.paymentStatus} disabled>{claim.paymentStatus}</option>
   <option value="paid">paid</option>
   <option value="pending">pending</option>
   <option value="expired">expired</option>
 </select>
 <label>Status</label>
-    <select defaultValue={claim.status} onChange={handleChange}>
+    <select defaultValue={claim.status} onChange={handleChange} name='status'>
   <option value={claim.status} disabled>{claim.status}</option>
   <option value="approved">approved</option>
   <option value="rejected">rejected</option>
@@ -98,7 +101,7 @@ updateClaim(claimId,updatedClaim,dispatch)
   <option value="pending">pending</option>
 </select>
 <label>Amount paid</label>
-    <select defaultValue={claim.amount} onChange={handleChange}>
+    <select defaultValue={claim.amount} onChange={handleChange} name='amount'>
   <option value={claim.amount} disabled>{claim.amount}</option>
   <option value="5000">5000</option>
   <option value="7500">7500</option>

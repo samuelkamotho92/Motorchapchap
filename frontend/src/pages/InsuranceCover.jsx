@@ -1,13 +1,22 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import UserSidebar from '../partials/UserSidebar'
 import {FaShoppingCart,FaDownload} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
+import { UseAuthContext } from '../context/Authcontext'
 const InsuranceCover = () => {
+const {user} = useContext(UseAuthContext);
 const [approvedClaims,setapproveClaim] = useState('');
 let data;
+let email = user.user.email;
 const getAllApproved = async()=>{
 const url = `http://localhost:8080/api/claim/getApproved`;
-const resp = await fetch(url);
+const resp = await fetch(url,{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+    credentials: "include",
+    withCredentials: true,
+});
 let getData = await resp.json();
 data = getData.data.myApproved;
 console.log(data);

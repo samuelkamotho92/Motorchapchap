@@ -39,7 +39,7 @@ try{
   if(resp.ok){
     //caryout another fetch
     const updateDetails = async()=>{
-const url = `http://localhost:8080/api/claim/getClaim/${claimId}`;
+const url = `http://localhost:8080/api/claim/${claimId}`;
       console.log(url);
       const resp = await fetch(url,{
         method:'PATCH',
