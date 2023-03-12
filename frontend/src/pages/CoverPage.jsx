@@ -58,7 +58,7 @@ const CoverPage = () => {
   let fullDate;
   let endDate;
   const getData = async()=>{
-const url = `http://localhost:8080/api/claim/getClaim/${claimId}`
+const url = `http://localhost:8080/api/claim/${claimId}`
 const resp = await fetch(url);
 const {data} = await resp.json();
 let {carOwner,registrationNo,dateSubmitted,phoneNumber,vehiclePurpose} = data.getOneClaim;

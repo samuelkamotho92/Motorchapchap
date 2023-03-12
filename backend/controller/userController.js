@@ -2,7 +2,7 @@ const { findByIdAndUpdate } = require('../models/userAuthModel');
 const User = require('../models/userAuthModel');
 const catchAsync = require('../utility/catchAsync');
 const AppError = require('../utility/AppError')
-exports.getAll = catchAsync(async (req,resp,next)=>{
+exports.getAll = async (req,resp,next)=>{
 try{
     const query = req.query.new;
      const users = query ? await User.find().sort({ _id: -1 }).limit(5):await User.find();
@@ -14,21 +14,22 @@ try{
     }
 )
 }
-})
+}
 
-exports.getOne =  catchAsync(async (req,resp,next)=>{
+exports.getOne =  async (req,resp)=>{
+    try{
         const id = req.params.id;
         const getOneUser = await User.findById(id);
-        if(!getOneUser){
-            return next(new AppError('no document found',404));
-        }
         resp.status(200).json({
             status:'success',
             data:{
                 getOneUser
             }
         })
-})
+    }catch(err){
+resp.status(404).json(err)
+    }
+}
 
 exports.updateUser = catchAsync(async (req,resp)=>{
     console.log(req.body);
