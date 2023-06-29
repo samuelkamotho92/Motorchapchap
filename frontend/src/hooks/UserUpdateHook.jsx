@@ -8,7 +8,7 @@ export const  UserUpdateHook = ()=>{
     const id = user.user._id;
     console.log(id);
 const updateUser = async (firstname,lastname,email,nationalID)=>{
-const url = `http://localhost:8080/api/user/getUser/${id}`;
+const url = `http://localhost:8080/api/user/${id}`;
 console.log(url);
 const resp = await fetch(url,{
     method:'PATCH',
@@ -29,7 +29,9 @@ if(!resp.ok){
 }
 if(resp.ok){
     localStorage.setItem('user',JSON.stringify(data));
-    dispatch({type:'UPDATE',payload:data});
+    // dispatch({type:'UPDATE',payload:data});
+    alert('user details updated');
+    window.location.replace('/');
 }
     }
 return {updateUser}

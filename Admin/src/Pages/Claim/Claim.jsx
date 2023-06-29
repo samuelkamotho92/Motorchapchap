@@ -13,6 +13,7 @@ const Claim = () => {
     const claimId = location.pathname.split('/')[2];
     console.log(claimId);
     const dispatch = useDispatch();
+    console.log(useSelector((state)=>state));
     const claim = useSelector((state)=>state.claim.claims.find((claim)=>claim._id === claimId));
 console.log(claim);
 const [inputs ,setInputs] = useState();
@@ -29,8 +30,8 @@ e.preventDefault();
 console.log({...inputs});
 const updatedClaim = {...inputs}
 updateClaim(claimId,updatedClaim,dispatch)
-alert('user updated');
-window.location.replace('/');
+// alert('claim updated');
+// window.location.replace('/');
 }
   return (
     <div className="product">

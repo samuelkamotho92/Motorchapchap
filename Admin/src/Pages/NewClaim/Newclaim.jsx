@@ -53,7 +53,7 @@ export default function NewProduct() {
           />
         </div>
         <div className="addProductItem">
-          <label>Registartion</label>
+          <label>Registration</label>
           <input
             name="registrationNo"
             type="string"

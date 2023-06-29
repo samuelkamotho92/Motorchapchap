@@ -12,14 +12,35 @@ import './Users.css'
 import { useSelector } from 'react-redux';
 import { userRequest } from '../../requestMethods';
 import {format} from 'timeago.js';
+import { useDispatch } from 'react-redux';
+import {updateUser} from '../../redux/apiCall'
+
 const Users = () => {
   const location = useLocation();
   const userId = location.pathname.split('/')[2];
   console.log(userId)
+  const dispatch = useDispatch();
   const user = useSelector((state)=>state.user.currentUser.find((user)=>user._id === userId));
   console.log(userId,user);
  
+const [inputs,setInputs] = useState();
+const handleChange = (e)=>{
+  setInputs((prev)=>{
+    console.log({...prev,[e.target.name]:e.target.value})
+    return {...prev,[e.target.name]:e.target.value}
+  })
+}
 
+const handleClick = (e)=>{
+  console.log('updating');
+  e.preventDefault();
+  console.log({...inputs});
+  const updUser = {...inputs}
+  console.log(updUser)
+  updateUser(userId,updUser,dispatch)
+  alert('user updated');
+  window.location.replace('/');
+}
 
   return (
 <div className="user">
@@ -79,6 +100,8 @@ const Users = () => {
                   type="text"
                   placeholder={user.firstname}
                   className="userUpdateInput"
+                  name='firstname'
+                  onChange={handleChange}
                 />
               </div>
               <div className="userUpdateItem">
@@ -86,6 +109,8 @@ const Users = () => {
                 <input
                   type="text"
                   placeholder={user.lastname}
+                  name='lastname'
+                  onChange={handleChange}
                   className="userUpdateInput"
                 />
               </div>
@@ -94,6 +119,8 @@ const Users = () => {
                 <input
                   type="text"
                   placeholder={user.email}
+                  name='email'
+                  onChange={handleChange}
                   className="userUpdateInput"
                 />
               </div>
@@ -102,6 +129,8 @@ const Users = () => {
                 <input
                   type="text"
                   placeholder={user.nationalID}
+                  name='nationalID'
+                  onChange={handleChange}
                   className="userUpdateInput"
                 />
               </div>
@@ -110,6 +139,8 @@ const Users = () => {
                 <input
                   type="text"
                   placeholder={user.role}
+                  name='role'
+                  onChange={handleChange}
                   className="userUpdateInput"
                 />
               </div>
@@ -126,7 +157,7 @@ const Users = () => {
                 </label>
                 <input type="file" id="file" style={{ display: "none" }} />
               </div>
-              <button className="userUpdateButton">Update</button>
+              <button className="userUpdateButton" onClick={handleClick}>Update</button>
             </div>
           </form>
         </div>

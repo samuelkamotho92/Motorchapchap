@@ -82,8 +82,8 @@ export const updateClaim = async (id, updatedClaim, dispatch) => {
   dispatch(updateClaimStart());
   try {
     //update in mongodb
-  const res =   await userRequest.patch(`/claim/${id}`,updatedClaim);
-  console.log(res)
+  // const res =   await userRequest.patch(`/claim/${id}`,updatedClaim);
+  // console.log(res)
     // update in our state.
     dispatch(updateClaimSuccess({ id, updatedClaim }));
   } catch (err) {
@@ -127,12 +127,14 @@ dispatch(deleteUserFailure());
 }
 
 //update User
-export const updateUser = async(id,user,dispatch)=>{
+export const updateUser = async(id,updatedUser,dispatch)=>{
+
 dispatch(updateUserStart())
 try
 {
-
-dispatch(updateUserSuccess({id,user}))
+    //update in mongodb
+const res =  await userRequest.patch(`/user/${id}`,updatedUser);
+dispatch(updateUserSuccess({id,updatedUser}))
 }catch(err){
   dispatch(updateUserFailure)
 }

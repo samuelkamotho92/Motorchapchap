@@ -24,36 +24,37 @@ await updateUser(firstname,lastname,email,nationalID);
     <div className='flex flex-row mt-60px h-screen bg-base-200'>
     <UserSidebar />
     
-    <section class="grid h-screen place-items-center  mx-auto">
+    <section className="max-w-4xl p-6 mx-auto bg-indigo-600 rounded-md shadow-md dark:bg-gray-800 mt-20">
         <form onSubmit={handleSubmit(onSubmit)}>
-        <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Account Details</h2>
+        <h2 className="text-lg font-bold text-white capitalize dark:text-white">Account Details</h2>
     
             <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
                 <div>
-                    <label class="text-blue-600 dark:text-gray-200">firstname</label>
-                    <input {...register('firstname',{required:true})} type='text' />
+                    <label class="text-white dark:text-gray-200">firstname</label>
+                    <input {...register('firstname',{required:true})} type='text'  className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'/>
                     {errors.firstname?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">firstname is required 😶</p>}
 
                 </div>
       <div>
-                    <label class="text-blue-600 dark:text-gray-200" >lastname</label>
-                    <input {...register('lastname',{required:true})} type='text'/>
+                    <label class="text-white dark:text-gray-200" >lastname</label>
+                    <input {...register('lastname',{required:true})} type='text' className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'/>
                     {errors.lastname?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">lastname is required 😶</p>}
                 </div>
     
                 <div>
-                    <label class="text-blue-600 dark:text-gray-200">National ID</label>
+                    <label class="text-white dark:text-gray-200">National ID</label>
                     <input {...register('nationalID',{required:true,minLength:{
                          value:8,
                          message:'min length is less than 8 ❌'
-                    }})} type='text'/>
+                    } 
+                    })} type='text' className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'/>
                     {errors.nationalID?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">nationalID is required 😶</p>}
 
                 </div>
     
                 <div>
-                    <label class="text-blue-600 dark:text-gray-200">Email</label>
-                    <input {...register('email',{required:true})} type='text'/>
+                    <label class="text-white dark:text-gray-200">Email</label>
+                    <input {...register('email',{required:true})} type='text' className='block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'/>
                     {errors.email?.type === 'required' && <p className="label-text-alt text-red-400 pt-2">email is required 😶</p>}
                 </div>
             </div>

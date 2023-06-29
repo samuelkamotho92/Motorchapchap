@@ -7,6 +7,7 @@ export const UseAuthContext = createContext(initialState);
 
 //check user from the local storage
 
+//useReducers
 
 const authReducer = (state,action)=>{
  switch (action.type) {

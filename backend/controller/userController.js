@@ -31,10 +31,11 @@ resp.status(404).json(err)
     }
 }
 
-exports.updateUser = catchAsync(async (req,resp)=>{
+exports.updateUser = async (req,resp)=>{
     console.log(req.body);
     try{
         const id = req.params.id;
+        console.log(req.body);
         const updatedUser = await User.findByIdAndUpdate(id,req.body,{
             new:true,
             runValidators:true
@@ -42,9 +43,7 @@ exports.updateUser = catchAsync(async (req,resp)=>{
         console.log(updatedUser);
         resp.status(201).json({
             status:"success",
-            user:{
-                updatedUser
-            }
+            user:updatedUser
         })
     }catch(err){
         resp.status(404).json({
@@ -52,8 +51,7 @@ exports.updateUser = catchAsync(async (req,resp)=>{
             error:err
         })
     }   
-
-})
+}
 
 exports.deleteUser = async (req,resp)=>{
     try

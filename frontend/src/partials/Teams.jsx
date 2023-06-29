@@ -11,7 +11,7 @@ function Teams() {
       <span className="text-indigo-600">Meet the</span> team</h2>
 
       <div className="grid md:grid-cols-4 gap-3">
-                <div className="mb-6 lg:mb-0">
+           <div className="mb-6 lg:mb-0">
           <div className="bg-white block rounded-lg shadow-lg">
             <div className="relative overflow-hidden bg-no-repeat  bg-cover">
               <img src={samkam} className="w-full rounded-t-lg" />

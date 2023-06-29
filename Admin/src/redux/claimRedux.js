@@ -41,9 +41,14 @@ export const productSlice = createSlice({
     updateClaimStart: (state) => {
       state.isFetching = true;
       state.error = false;
+      console.log(state)
     },
     updateClaimSuccess: (state, action) => {
+      console.log(state.claims);
       state.isFetching = false;
+      console.log(state.claims[
+        state.claims.findIndex((claim) => claim._id === action.payload.id)
+      ])
       state.claims[
         state.claims.findIndex((claim) => claim._id === action.payload.id)
       ] = action.payload.updatedclaim;
